@@ -1,3 +1,9 @@
+# gymbrah-tracker
+
+Personal use to log my weight and display it in a linear chart to visually see my progress
+Getting tired of google sheets, might as well make a better one
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
