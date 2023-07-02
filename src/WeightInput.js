@@ -6,18 +6,14 @@ export default function WeightInput() {
   return (
     <Form as={"Container"}>
         <Form.Label>Enter your weight</Form.Label>
-        <Form.Control type="number" className="mb-3" placeholder="Enter weight" />
+        <Form.Control type="number" className="mb-3" placeholder="Enter weight (lbs)" />
         <Form.Text className="text-muted">
-          "If you can't measure it, you can't manage it" ~Edwards Deming
+          "Can't measure it, can't manage it." ~Edwards Deming
         </Form.Text>
 
-        {/* mb-3 == marginBottom 3 */}
-        <Form.Select className="mb-3" aria-label="Mass (weight) units">
-          <option value="KG">kg</option>
-          <option value="LBS">lbs</option>
-        </Form.Select>
-        <div className="text-center">
-            <Button variant="primary" type="submit">Submit</Button>
+        {/* mb-3 == bootstrap spacing, marginBottom 3 */}
+        <div className="text-center mt-3">
+            <Button variant="primary" type="submit">Enter</Button>
         </div>
 
 
