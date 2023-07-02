@@ -6,7 +6,6 @@ import * as ReactDOM from "react-dom/client";
 import ErrorPage from "./error-page";
 import History from "./routes/history";
 import App from './App';
-import GymBrahNavBar from './Gymbrahnavbar';
 
 import {
   createBrowserRouter,
@@ -29,11 +28,14 @@ const router = createBrowserRouter([
   },
 ]);
 
+//navbar re-haul, must not reload the browser, scrap the bootstrap navbar needed, rather, restructure it
+//call GymBrahNavBar on every component instead, so you can use NavLink inside
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
 root.render(
   <React.StrictMode>
-     <GymBrahNavBar> {/* all layouts will display navbar, re-usability basics */}
         <RouterProvider router={router} />
-    </GymBrahNavBar>
   </React.StrictMode>
 );

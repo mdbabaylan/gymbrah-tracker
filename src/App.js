@@ -1,18 +1,20 @@
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import WeightInput from './WeightInput';
+import GymBrahNavBar from './Gymbrahnavbar';
 
 function App() {
   return (
+    <>
+    <GymBrahNavBar/>
     <Container>
       <Row xs={12}>
-          <Col><p>Gymbrah Weight Log initial amazon s3 deployment</p></Col>
+        <br></br><br></br>
       </Row>
-
       <WeightInput/>
-
     </Container>
+    </>
+
   );
 }
 

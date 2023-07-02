@@ -1,9 +1,13 @@
+import WeightChart from '../WeightChart';
+import GymBrahNavBar from '../Gymbrahnavbar';
 
 function History() {
   return (
-    <div>
-      3rd party graph, hardcode some numbers for now.
-    </div>
+    <>
+        <GymBrahNavBar/>
+        <WeightChart/>
+    </>
+
   );
 }
 
