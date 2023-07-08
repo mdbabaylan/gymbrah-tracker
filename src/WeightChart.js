@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AreaChart,
   Area,
@@ -10,8 +10,8 @@ import {
   ReferenceLine
 } from "recharts";
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
 import axios from "axios";
+
 
 const data = [
   {
@@ -110,12 +110,16 @@ const getWeightData = () => {
     });
 }
 
+
+
+
 export default function WeightChart() {
 
   useEffect(() => {
     // This code will only run once, when the component mounts.
     getWeightData();
   }, []);
+
 
 
   return (
