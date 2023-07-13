@@ -5,6 +5,7 @@ import * as ReactDOM from "react-dom/client";
 
 import ErrorPage from "./error-page";
 import History from "./routes/history";
+import Login from "./routes/Login"
 import App from './App';
 
 import {
@@ -15,6 +16,8 @@ import {
 //bootstrap css, wont work without this
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+//require('dotenv').config();
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -24,6 +27,11 @@ const router = createBrowserRouter([
   {
     path: "/history",
     element: <History />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: "/login",
+    element: <Login />,
     errorElement: <ErrorPage />
   },
 ]);

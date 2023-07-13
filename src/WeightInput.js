@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from "axios";
+
+import Toast from 'react-bootstrap/Toast';
+import ToastContainer from 'react-bootstrap/ToastContainer';
 
 export default function WeightInput() {
   
@@ -15,6 +18,12 @@ export default function WeightInput() {
     return formattedDate;
   }
   const [weight, setWeight] = useState(0);
+  
+  const [showA, setShowA] = useState(false);
+
+  const toggleShowA = () => setShowA(!showA);
+  const userID = localStorage.getItem('userid');
+  
 
   const postWeightData = () => {
     // Create a JSON payload
@@ -23,8 +32,9 @@ export default function WeightInput() {
     // "weight": 186.5
     const payload = {
       date: getFormattedDate(),
-      user_id: '1',
-      weight: weight
+      // user_id: '1',
+      user_id: userID,
+      weight:  weight
     };
 
     const config = {
@@ -37,6 +47,10 @@ export default function WeightInput() {
     axios.post('http://localhost:3000/api/post', JSON.stringify(payload), config)
       .then(response => {
         console.log(response.data);
+        setShowA(true); //show success toast
+        setTimeout(function() {
+          setShowA(false); // hide toast after 2 seconds
+        }, 2000);
       })
       .catch(error => {
         console.error(error);
@@ -46,6 +60,20 @@ export default function WeightInput() {
   // onChange={(e)=>{setWeight(e.value)}}/>
   return (
     <Form as={"Container"}>
+        <ToastContainer position="top-center" >
+          <Toast show={showA} bg="success" onClose={toggleShowA}>
+            <Toast.Header >
+            <img
+                src="holder.js/20x20?text=%20"
+                className="rounded me-2"
+                alt=""
+              />
+              <strong className="me-auto ">Success!</strong>
+              <small></small>
+            </Toast.Header>
+            <Toast.Body className={'success text-white'}>Weight logged!</Toast.Body>
+          </Toast>
+        </ToastContainer>
         <Form.Label>Enter your weight</Form.Label>
         <Form.Control type="number" className="mb-3" placeholder="Enter weight (lbs)" value={weight} onChange={(e)=>{setWeight(e.target.valueAsNumber)}}/>
         <Form.Text className="text-muted">

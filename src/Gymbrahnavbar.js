@@ -5,6 +5,12 @@ import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from "react-router-dom";
 
 export default function GymBrahNavBar({children}) {
+const userID = localStorage.getItem('userid');
+const logout = () =>{
+  //clear token and id upon logout
+  localStorage.removeItem('token');
+  localStorage.removeItem('userid');
+}
 return(
   <>
     {/* Fixed. SPA like behavior, href is for external links only, content not part of your project */}
@@ -15,12 +21,13 @@ return(
           <Nav className="me-3">
             <Nav.Link><NavLink to="/" style={{color: "#808080",  textDecoration: "none"}}>Home</NavLink></Nav.Link>
           </Nav>
-          <Nav className="me-3">
+          <Nav className="me-auto">
             <Nav.Link><NavLink to="/history" style={{color: "#808080",  textDecoration: "none"}}>History</NavLink></Nav.Link>
           </Nav>
-          <Nav className="me-auto">
-            <Nav.Link><NavLink to="/demo" style={{color: "#808080",  textDecoration: "none"}}>Demo</NavLink></Nav.Link>
-          </Nav>
+          {userID ? (<Nav className="me-2">
+            <Nav.Link><NavLink to="" style={{color: "#808080",  textDecoration: "none" }} onClick={logout}>Logout</NavLink></Nav.Link>
+          </Nav>) : <></>}
+
         </Container>
     </Navbar>
 
