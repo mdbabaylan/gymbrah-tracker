@@ -13,8 +13,7 @@ export default function Login() {
 
 
   return (
-    <Container className="m-0">
-        <h4>Login Page</h4>
+    <Container className="d-flex align-items-center vh-100">
         <LoginForm/>
     </Container>    
   );

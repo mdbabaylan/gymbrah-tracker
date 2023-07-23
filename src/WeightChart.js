@@ -14,9 +14,15 @@ import axios from "axios";
 import Spinners from "./Spinners";
 import { useNavigate } from 'react-router-dom';
 
+import Toast from 'react-bootstrap/Toast';
+import ToastContainer from 'react-bootstrap/ToastContainer';
+
 export default function WeightChart() {
+  const api_url = process.env.REACT_APP_ENDPOINT_URL;
   const [weightData, setWeightData] = useState([]);
   const userID = localStorage.getItem('userid');
+  const [showB, setShowB] = useState(false);
+  const toggleShowB = () => setShowB(!showB);
   
   const navigate = useNavigate();
 
@@ -41,7 +47,7 @@ export default function WeightChart() {
 
   //all, weekly, monthly, yearly (to reduce load, config in backend)
   const getWeightData = () => {
-    axios.get('http://localhost:3000/api/getAll/'+userID)
+    axios.get(api_url+'/getAll/'+userID)
       .then(function (response) {
         // handle success
         //console.log(response.data);
@@ -51,6 +57,11 @@ export default function WeightChart() {
       .catch(function (error) {
         // handle error
         console.log(error);
+        setShowB(true)
+        setTimeout(function() {
+          setShowB(false); // hide toast after 2 seconds
+        }, 2500);
+        console.log(error);
       })
       .finally(function () {
         // always exe cuted
@@ -59,6 +70,21 @@ export default function WeightChart() {
 
   return (
     <Container className="m-0">
+            {/* Toasts for error */}
+          <ToastContainer position="top-center" >
+          <Toast show={showB} bg="danger" onClose={toggleShowB}>
+            <Toast.Header >
+            <img
+                src="holder.js/20x20?text=%20"
+                className="rounded me-2"
+                alt=""
+              />
+              <strong className="me-auto ">Error</strong>
+              <small></small>
+            </Toast.Header>
+            <Toast.Body className={'danger text-white'}>Something went wrong.</Toast.Body>
+          </Toast>
+      </ToastContainer>
         {/* <Row xs={12}> */}
         <br></br>
         <h4>Weight Chart in LBS</h4>

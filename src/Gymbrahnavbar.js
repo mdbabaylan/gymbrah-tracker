@@ -3,13 +3,16 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 export default function GymBrahNavBar({children}) {
+  const navigate = useNavigate();
 const userID = localStorage.getItem('userid');
 const logout = () =>{
   //clear token and id upon logout
   localStorage.removeItem('token');
   localStorage.removeItem('userid');
+  navigate('/login');
 }
 return(
   <>

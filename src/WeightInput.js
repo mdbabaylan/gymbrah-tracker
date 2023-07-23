@@ -5,9 +5,11 @@ import axios from "axios";
 
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
+//require('dotenv').config();
 
 export default function WeightInput() {
-  
+  const api_url = process.env.REACT_APP_ENDPOINT_URL;
+
   const getFormattedDate= () => {
     const today = new Date();
     const year = today.getFullYear().toString();
@@ -20,8 +22,10 @@ export default function WeightInput() {
   const [weight, setWeight] = useState(0);
   
   const [showA, setShowA] = useState(false);
+  const [showB, setShowB] = useState(false);
 
   const toggleShowA = () => setShowA(!showA);
+  const toggleShowB = () => setShowB(!showB);
   const userID = localStorage.getItem('userid');
   
 
@@ -32,7 +36,6 @@ export default function WeightInput() {
     // "weight": 186.5
     const payload = {
       date: getFormattedDate(),
-      // user_id: '1',
       user_id: userID,
       weight:  weight
     };
@@ -44,16 +47,23 @@ export default function WeightInput() {
     };
   
     // Make the POST request
-    axios.post('http://localhost:3000/api/post', JSON.stringify(payload), config)
+    axios.post(api_url+'/post', JSON.stringify(payload), config)
       .then(response => {
         console.log(response.data);
         setShowA(true); //show success toast
         setTimeout(function() {
           setShowA(false); // hide toast after 2 seconds
         }, 2000);
+        setWeight(0);
       })
       .catch(error => {
+        setShowB(true)
+        setTimeout(function() {
+          setShowB(false); // hide toast after 2 seconds
+        }, 2500);
+        console.log(error);
         console.error(error);
+        
       });
   };
 
@@ -74,6 +84,22 @@ export default function WeightInput() {
             <Toast.Body className={'success text-white'}>Weight logged!</Toast.Body>
           </Toast>
         </ToastContainer>
+        {/* Toasts for error */}
+        <ToastContainer position="top-center" >
+            <Toast show={showB} bg="danger" onClose={toggleShowB}>
+              <Toast.Header >
+              <img
+                  src="holder.js/20x20?text=%20"
+                  className="rounded me-2"
+                  alt=""
+                />
+                <strong className="me-auto ">Error</strong>
+                <small></small>
+              </Toast.Header>
+              <Toast.Body className={'danger text-white'}>Something went wrong.</Toast.Body>
+            </Toast>
+        </ToastContainer>
+
         <Form.Label>Enter your weight</Form.Label>
         <Form.Control type="number" className="mb-3" placeholder="Enter weight (lbs)" value={weight} onChange={(e)=>{setWeight(e.target.valueAsNumber)}}/>
         <Form.Text className="text-muted">
