@@ -101,7 +101,7 @@ export default function WeightInput() {
         </ToastContainer>
 
         <Form.Label>Enter your weight</Form.Label>
-        <Form.Control type="number" className="mb-3" placeholder="Enter weight (lbs)" value={weight} onChange={(e)=>{setWeight(e.target.valueAsNumber)}}/>
+        <Form.Control type="number" className="mb-3" step=".01" placeholder="Enter weight (lbs)" value={weight} onChange={(e)=>{setWeight(e.target.valueAsNumber)}}/>
         <Form.Text className="text-muted">
           "Can't measure it, can't manage it." ~Edwards Deming
         </Form.Text>
