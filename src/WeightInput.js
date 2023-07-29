@@ -45,9 +45,14 @@ export default function WeightInput() {
         'Content-Type': 'application/json'
       }
     };
+
+    const instance = axios.create({
+      baseURL: api_url,
+      https: false,
+    });
   
     // Make the POST request
-    axios.post(api_url+'/post', JSON.stringify(payload), config)
+    instance.post('/post', JSON.stringify(payload), config)
       .then(response => {
         console.log(response.data);
         setShowA(true); //show success toast

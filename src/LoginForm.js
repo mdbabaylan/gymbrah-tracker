@@ -32,10 +32,16 @@ export default function LoginForm() {
           'Content-Type': 'application/json'
         }
       };
+
+      const instance = axios.create({
+        baseURL: api_url,
+        https: false,
+      });
+    
     
       // Make the POST request
       // axios.post('http://localhost:3000/api/login', JSON.stringify(payload), config)
-      axios.post(api_url+'/login', JSON.stringify(payload), config)
+      instance.post('/login', JSON.stringify(payload), config)
         .then(function (response) {
           // handle success
           const token = response.data.token

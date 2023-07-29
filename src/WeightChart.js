@@ -45,12 +45,16 @@ export default function WeightChart() {
   }, [weightData]);
 
 
+  const instance = axios.create({
+    baseURL: api_url,
+    https: false,
+  });
+
   //all, weekly, monthly, yearly (to reduce load, config in backend)
   const getWeightData = () => {
-    axios.get(api_url+'/getAll/'+userID)
+    instance.get('/getAll/'+userID)
       .then(function (response) {
         // handle success
-        //console.log(response.data);
         setWeightData(response.data)
         
       })
